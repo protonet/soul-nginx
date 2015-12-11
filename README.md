@@ -7,3 +7,5 @@
 **The nginx configuration for gluing together our dockerized soul services into one webservice**
 
 This simply takes the main nginx docker image, bakes in the `nginx.conf` from this repo and puts it onto docker hub.
+
+You can find the legacy HTTP stack configs from our Ubuntu-based boxes on [this wiki page](https://github.com/protonet/german-shepherd/wiki/HTTP-Proxy-Stack).
