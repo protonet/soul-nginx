@@ -3,7 +3,8 @@ services:
   - docker
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install -y docker-engine
+  # Try to prevent docker from asking for config overwrite
+  - sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install -y docker-engine
 install:
   - echo "Just skip default travis script here :) kthxbye"
 before_script:
