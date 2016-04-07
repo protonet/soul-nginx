@@ -5,15 +5,17 @@ COPY ./src /tmp/
 
 RUN apt-get update && \
     apt-get -y upgrade && \
-    apt-get -y install build-essential zlib1g-dev libpcre3-dev libssl-dev && \
+    apt-get -y install build-essential zlib1g-dev libpcre3-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
 
 # Configure options based on https://hub.docker.com/_/nginx/ 1.9 version
 # output of `nginx -V` (configure opts) report. Commented lines mean
 # modules that were in by default but were considered unneccessary
-RUN cd /tmp/ && \
+RUN mkdir /tmp/mod_zip && \
+    cd /tmp/mod_zip && \
+    tar xvfz /tmp/mod_zip-9f68cba9.tar.gz && \
+    cd /tmp/ && \
     tar xvfz nginx-$NGINX_VERSION.tar.gz && \
     cd nginx-$NGINX_VERSION && \
     ./configure \
@@ -79,8 +81,12 @@ RUN cd /tmp/ && \
       --without-http_upstream_ip_hash_module \
       --without-http_upstream_least_conn_module \
       --without-http_upstream_keepalive_module \
-      --without-http_upstream_zone_module && \
-    make && make install && rm -rf /tmp/nginx*
+      --without-http_upstream_zone_module \
+      # ==================================
+      # CUSTOM modules here for soul-nginx
+      # ==================================
+      --add-module=/tmp/mod_zip && \
+    make && make install && rm -rf /tmp/nginx* && rm -rf /tmp/mod*
 
 RUN addgroup protonet --gid 1000 && adduser --gecos "" --disabled-password --disabled-login protonet --uid 1000 --gid 1000
 COPY nginx.conf /etc/nginx/nginx.conf
