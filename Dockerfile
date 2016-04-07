@@ -3,16 +3,13 @@ FROM experimentalplatform/ubuntu:latest
 ENV NGINX_VERSION 1.9.14
 COPY ./src /tmp/
 
-RUN apt-get update && \
-    apt-get -y upgrade && \
-    apt-get -y install build-essential zlib1g-dev libpcre3-dev && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
 # Configure options based on https://hub.docker.com/_/nginx/ 1.9 version
 # output of `nginx -V` (configure opts) report. Commented lines mean
 # modules that were in by default but were considered unneccessary
-RUN mkdir /tmp/mod_zip && \
+RUN apt-get update && \
+    apt-get -y upgrade && \
+    apt-get -y install build-essential zlib1g-dev libpcre3-dev && \
+    mkdir /tmp/mod_zip && \
     cd /tmp/mod_zip && \
     tar xvfz /tmp/mod_zip-9f68cba9.tar.gz && \
     cd /tmp/ && \
@@ -86,7 +83,9 @@ RUN mkdir /tmp/mod_zip && \
       # CUSTOM modules here for soul-nginx
       # ==================================
       --add-module=/tmp/mod_zip && \
-    make && make install && rm -rf /tmp/nginx* && rm -rf /tmp/mod*
+    make && make install && rm -rf /tmp/nginx* && rm -rf /tmp/mod* && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN addgroup protonet --gid 1000 && adduser --gecos "" --disabled-password --disabled-login protonet --uid 1000 --gid 1000
 COPY nginx.conf /etc/nginx/nginx.conf
