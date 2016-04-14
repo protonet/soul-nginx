@@ -90,5 +90,9 @@ RUN apt-get update && \
 RUN addgroup protonet --gid 1000 && adduser --gecos "" --disabled-password --disabled-login protonet --uid 1000 --gid 1000
 COPY nginx.conf /etc/nginx/nginx.conf
 
+RUN mkdir -p /home/protonet/dashboard/shared/files && chown protonet:protonet /home/protonet/dashboard/shared/files
+COPY src/ /home/protonet/dashboard/shared/files
+RUN chown -R protonet:protonet /home/protonet/dashboard/shared/files
+
 EXPOSE 80 443
 CMD ["nginx", "-g", "daemon off;"]
