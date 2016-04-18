@@ -1,0 +1,10 @@
+nginx:
+  build: .
+  ports:
+    - "5000:80"
+  links:
+    - soul-web:soul-web
+soul-web:
+  build: ./app/
+  ports:
+    - 5001:5000

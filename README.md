@@ -1,3 +1,8 @@
+# Testing branch for mod_zip integration
+
+  1. Build demo rack app and nginx from local checkout with `docker-compose build && docker-compose up`
+  2. `wget localhost:5000/anypathwilldo -O tmp.zip`
+
 # Soul Nginx [![Build Status](https://travis-ci.com/protonet/soul-nginx.svg?token=aANFMeZWXsUEFNSVHTqz)](https://travis-ci.com/protonet/soul-nginx)
 
   * [Source Code](https://github.com/protonet/soul-nginx)
