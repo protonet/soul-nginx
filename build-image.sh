@@ -18,5 +18,10 @@ docker run -i -t --rm \
   --add-host soul-webdav:127.0.0.1 \
   "$IMAGE_NAME" nginx -t
 
-# Push the image
-docker push "$IMAGE_NAME"
+
+if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
+  echo -e "\n\nWe're not uploading images from pull requests."
+else
+  # Push the image
+  docker push "$IMAGE_NAME"
+fi
