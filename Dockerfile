@@ -33,7 +33,8 @@ RUN apt-get update && \
       --group=nginx \
       #--with-http_ssl_module \
       --with-http_realip_module \
-      #--with-http_addition_module \
+      # Required for mod_zip!
+      --with-http_addition_module \
       #--with-http_sub_module \
       #--with-http_dav_module \
       #--with-http_flv_module \
