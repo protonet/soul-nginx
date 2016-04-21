@@ -1,6 +1,6 @@
 FROM experimentalplatform/ubuntu:latest
 
-ENV NGINX_VERSION 1.9.14
+ENV NGINX_VERSION 1.9.15
 COPY ./src /tmp/
 
 # Configure options based on https://hub.docker.com/_/nginx/ 1.9 version
