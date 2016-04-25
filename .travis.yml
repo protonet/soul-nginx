@@ -1,13 +1,6 @@
 sudo: false
 services:
   - docker
-before_install:
-  - sudo apt-get update -qq
-  # Try to prevent docker from asking for config overwrite
-  - sudo apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install -y docker-engine
-install:
-  - echo "Just skip default travis script here :) kthxbye"
-before_script:
-  - echo "Just skip default travis script here :) kthxbye"
 script:
-  - ./build-image.sh
+  - curl -L https://raw.githubusercontent.com/experimental-platform/build-scripts/master/buildimg.sh | bash
+
