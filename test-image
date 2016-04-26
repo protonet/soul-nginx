@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -eu
+
+TAGNAME="$1"
+
+echo " * * * Testing nginx config"
+exec docker run -i \
+	--add-host soul-socketio:127.0.0.1 \
+	--add-host soul-web:127.0.0.1 \
+	--add-host soul-webdav:127.0.0.1 \
+	"$TAGNAME" nginx -t
+
