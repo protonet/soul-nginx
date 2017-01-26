@@ -11,7 +11,7 @@ RUN apt-get update && \
     apt-get -y install build-essential zlib1g-dev libpcre3-dev && \
     mkdir /tmp/mod_zip && \
     cd /tmp/mod_zip && \
-    tar xvfz /tmp/mod_zip-9f68cba9.tar.gz && \
+    tar xvfz /tmp/mod_zip-ca0b345b.tar.gz && \
     cd /tmp/ && \
     tar xvfz nginx-$NGINX_VERSION.tar.gz && \
     cd nginx-$NGINX_VERSION && \
