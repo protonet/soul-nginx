@@ -8,7 +8,7 @@ COPY ./src /tmp/
 # modules that were in by default but were considered unneccessary
 RUN apt-get update && \
     apt-get -y upgrade && \
-    apt-get -y install build-essential zlib1g-dev libpcre3-dev && \
+    apt-get -y install build-essential zlib1g libpcre3 zlib1g-dev libpcre3-dev && \
     mkdir /tmp/mod_zip && \
     cd /tmp/mod_zip && \
     tar xvfz /tmp/mod_zip-ca0b345b.tar.gz && \
@@ -85,6 +85,8 @@ RUN apt-get update && \
       # ==================================
       --add-module=/tmp/mod_zip && \
     make && make install && rm -rf /tmp/nginx* && rm -rf /tmp/mod* && \
+    apt-get remove -y build-essential zlib1g-dev libpcre3-dev && \
+    apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
