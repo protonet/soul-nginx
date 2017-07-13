@@ -3,10 +3,10 @@
 set -e
 
 docker info
-docker login -e "none" -u "$QUAY_USER" -p "$QUAY_PASS" quay.io
+docker login -u "$QUAY_USER" -p "$QUAY_PASS" quay.io
 
 HUB_REPOSITORY="quay.io/protonetinc/soul-nginx"
-IMAGE_NAME="$HUB_REPOSITORY:$TRAVIS_BRANCH"
+IMAGE_NAME="$HUB_REPOSITORY:${TRAVIS_BRANCH////-}"
 
 # Build the image
 docker build --pull -t "$IMAGE_NAME" .
